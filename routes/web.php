@@ -27,5 +27,12 @@ Route::get('/cities/{id}/edit', [CityController::class, 'edit'])->name('cities.e
 Route::put('/cities/{id}', [CityController::class, 'update'])->name('cities.update');
 Route::delete('/cities/{id}', [CityController::class, 'destroy'])->name('cities.destroy');
 
+Route::post('/toggle-darkmode', function () {
+    $darkMode = session('dark_mode', false);
+    session(['dark_mode' => !$darkMode]);
+    return back();
+})->name('toggle.darkmode');
+
+
 
 require __DIR__.'/auth.php';
