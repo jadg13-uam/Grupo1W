@@ -23,16 +23,32 @@
                             class="text-indigo-600 hover:text-indigo-900 font-medium">
                             {{ __('Edit') }}
                         </a>
-                        <form action="{{ route('cities.destroy', $city->id) }}" method="POST" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:text-red-900 font-medium">
+                        @if (request('delete') == $city->id)
+                            <!-- Confirm Delete UI -->
+                            <form action="{{ route('cities.destroy', $city->id) }}" method="POST" class="flex space-x-3">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                    {{ __('Confirm Delete') }}
+                                </button>
+                                <a href="{{ route('cities.index') }}"
+                                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                                    {{ __('Cancel') }}
+                                </a>
+                            </form>
+                        @else
+                            <a href="{{ route('cities.index', ['delete' => $city->id]) }}"
+                                class="text-red-600 hover:text-red-900 font-medium">
                                 {{ __('Delete') }}
-                            </button>
-                        </form>
+                            </a>
+                        @endif
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div class="mt-6">
+            {{ $cities->links() }}
         </div>
     </div>
 </x-app-layout>

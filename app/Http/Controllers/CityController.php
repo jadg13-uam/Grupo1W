@@ -13,7 +13,7 @@ class CityController extends Controller
     public function index()
     {
         try{
-            $cities = City::orderBy('name', 'asc')->get();
+            $cities = City::orderBy('name', 'asc')->paginate(6);
             return view('cities.index', compact('cities'));
         }catch(\Exception $e){
             return redirect()->back()->with('error', 'Error al obtener las ciudades: ' . $e->getMessage());}
