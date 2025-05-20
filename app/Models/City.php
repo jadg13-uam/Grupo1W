@@ -11,4 +11,9 @@ class City extends Model
         'description',
     ];
 
+    public function citizens()
+    {
+        return $this->hasMany(Citizen::class);
+    }
+
 }
