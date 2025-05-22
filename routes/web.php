@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CitizenController;
+use App\Http\Controllers\ReportCitizenController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,6 +32,8 @@ Route::middleware('auth')->group(function () {
 route::middleware(['auth'])->group(function () {
     Route::resource('cities', CityController::class);
     Route::resource(('citizens'), CitizenController::class);
+    Route::get('report', [ReportCitizenController::class, 'send_report'])->name('report');
+
 });
 
 Route::post('/toggle-darkmode', function () {
